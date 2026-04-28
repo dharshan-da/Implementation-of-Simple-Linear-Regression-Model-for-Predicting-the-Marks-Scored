@@ -24,36 +24,32 @@ Developed by: Dharshan Sri D A
 RegisterNumber: 212225230055 
 */
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
-data=pd.read_csv("Startup.csv")
-X=data['R&D Spend'].values
-Y=data['Profit'].values
-X=(X-X.mean())/X.std()
-m=0
-b=0
-learning_rate=0.1
-epoches=1000
-n=len(X)
-for i in range(epoches):
-    Y_predict=m*X+b
-    dm=(-2/n)*np.sum(X*(Y-Y_predict))
-    db=(-2/n)*np.sum(Y-Y_predict)
-    m=m-learning_rate*dm
-    b=b-learning_rate*db
-print("Slope(m):",m)
-print("Intercept(b):",b)
-y_predict=m*X+b
-plt.scatter(X,Y)
-plt.plot(X,Y_predict)
-plt.xlabel("R&D Spend (Normalized)")
-plt.ylabel("Profit")
-plt.title("Gradient Descent on 50_Startups Dataset")
+from sklearn.linear_model import LinearRegression
+X=np.array([1,2,3,4,5]).reshape(-1,1)
+Y=np.array([77,83,87,92,99])
+model=LinearRegression()
+model.fit(X,Y)
+m=model.coef_[0]
+b=model.intercept_
+print("slope(m):",m)
+print("intercept(b):",b)
+X_input=float(input("Enter hours studied"))
+predicted_marks=model.predict([[X_input]])
+print("Predicted Marks:",predicted_marks[0])
+Y_pred=model.predict(X)
+plt.scatter(X,Y,label="Actual Data")
+plt.plot(X, Y_pred, label="Regression Line")
+plt.xlabel("Hours Studied:")
+plt.ylabel("Marks Scored")
+plt.title("Simple Linear Regression (Using sklearn)")
+plt.legend()
 plt.show()
+
 ```
 
 ## Output:
-<img width="889" height="519" alt="Screenshot 2026-04-27 085452" src="https://github.com/user-attachments/assets/e44fef78-af82-43d2-8b4b-e3993a6f8743" />
+<img width="695" height="428" alt="Screenshot 2026-04-21 092838" src="https://github.com/user-attachments/assets/c2bc7a14-fbee-4be5-b81d-f80cd52e6927" />
 
 
 
